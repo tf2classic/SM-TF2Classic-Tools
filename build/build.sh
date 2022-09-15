@@ -10,13 +10,16 @@ git clone https://github.com/alliedmodders/metamod-source mmsource-1.11 -b 1.11-
 git clone https://github.com/alliedmodders/ambuild
 pip install ./ambuild
 
-cd sourcemod
+pushd sourcemod
+
 mkdir build
-cd build
+pushd build
 
 python3 ../configure.py --enable-optimize -s=tf2 --no-mysql
  ~/.local/bin/ambuild
 
+popd
+popd
 
-# we are in the build dir
+# we are now in the build dir
 cp ./sourcemod/build/package/addons/sourcemod/bin/* ../sourcemod/bin/ -rfv
