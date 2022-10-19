@@ -24,3 +24,6 @@ popd
 
 # we are now in the build dir
 cp ./sourcemod/build/package/addons/sourcemod/bin/* ../sourcemod/bin/ -rfv
+
+read -p "Done!"
+bash
