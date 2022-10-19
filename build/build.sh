@@ -16,7 +16,8 @@ mkdir build
 pushd build
 
 python3 ../configure.py --enable-optimize -s=tf2 --no-mysql
- ~/.local/bin/ambuild
+# ~/.local/bin/ambuild
+ambuild
 
 popd
 popd
