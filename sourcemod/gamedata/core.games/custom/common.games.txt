@@ -7,36 +7,31 @@
 		{
 			/* Offset into LevelShutdown */
 			// See "LevelShutdown"
-			"gEntList"
-			{
-				"windows" 	"87"
-				"linux" 	"99"
-				"mac" 		"99"
-			}
-			"EntInfo"
-			{
-				"linux"		"4"
-				"mac"		"4"
-			}
+			//"gEntList"
+			//{
+			//	"windows" 	"87"
+			//	"linux" 	"99"
+			//}
+			//"EntInfo"
+			//{
+			//	"linux"		"4"
+			//}
 			"GetDataDescMap"
 			{
 				"windows"		"11"
 				"linux"			"12"
-				"linux64"		"12"
-				"mac"			"12"
-				"mac64"			"12"
 			}
 		}
 		"Signatures"
 		{
 			// CServerGameDLL::DLLShutdown + 2 vtable offset from me
 			// Has string "stats.txt" as 'aStatsTxt'
+			// CServerGameDLL::LevelShutdown
 			"LevelShutdown"
 			{
 				"library"	"server"
-				"windows"	"\x56\xE8\x2A\x2A\x2A\x2A\xA1\x2A\x2A\x2A\x2A\xC7\x00\x00\x00\x00\x00"
-				"linux"		"\x55\x89\xE5\x56\x53\x83\xEC\x10\xE8\x2A\x2A\x2A\x2A\xA1\x2A\x2A\x2A\x2A"
-				"mac"		"\x55\x89\xE5\x56\x53\x83\xEC\x10\xE8\x2A\x2A\x2A\x2A\xA1\x2A\x2A\x2A\x2A"
+				"windows"	"@_?LevelShutdown@CServerGameDLL@@UAEXXZ"
+				"linux"		"@_ZN14CServerGameDLL13LevelShutdownEv"
 			}
 		}
 		"Keys"
