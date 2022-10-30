@@ -16,15 +16,15 @@
 			// "RandomCritRapid"
 			"CalcIsAttackCriticalHelper"
 			{
-				"windows" 	"389"
-				"linux" 	"394"
+				"windows"	"389"
+				"linux"		"394"
 			}
 			// + 1 from CalcIsAttackCriticalHelper
 			// This is ::CanFireRandomCrit
 			"CalcIsAttackCriticalHelperNoCrits"
 			{
-				"windows" 	"390"
-				"linux" 	"395"
+				"windows"	"390"
+				"linux"		"395"
 			}
 		}
 		"Signatures"
@@ -35,14 +35,14 @@
 			"Burn"
 			{
 				"library"	"server"
-				"windows"	"@_?Burn@CTFPlayerShared@@QAEXPAVCTFPlayer@@PAVCTFWeaponBase@@@Z"
+				"windows"	"@?Burn@CTFPlayerShared@@QAEXPAVCTFPlayer@@PAVCTFWeaponBase@@@Z"
 				"linux"		"@_ZN15CTFPlayerShared4BurnEP9CTFPlayerP13CTFWeaponBase"
 			}
 			// CTFPlayerShared::RemoveDisguise
 			"RemoveDisguise"
 			{
 				"library"	"server"
-				"windows"	"@_?RemoveDisguise@CTFPlayerShared@@QAEXXZ"
+				"windows"	"@?RemoveDisguise@CTFPlayerShared@@QAEXXZ"
 				"linux"		"@_ZN15CTFPlayerShared14RemoveDisguiseEv"
 			}
 			// "disguise" to get to CTFPlayer::ClientCommand, a few funcs below that
@@ -50,7 +50,7 @@
 			"Disguise"
 			{
 				"library"	"server"
-				"windows"	"@_?Disguise@CTFPlayerShared@@QAEXHH@Z"
+				"windows"	"@?Disguise@CTFPlayerShared@@QAEXHH@Z"
 				"linux"		"@_ZN15CTFPlayerShared8DisguiseEii"
 			}
 			// "Regenerate.Touch" first func at top of subroutine
@@ -58,7 +58,7 @@
 			"Regenerate"
 			{
 				"library"	"server"
-				"windows"	"@_?Regenerate@CTFPlayer@@QAEXXZ"
+				"windows"	"@?Regenerate@CTFPlayer@@QAEXXZ"
 				"linux"		"@_ZN9CTFPlayer10RegenerateEv"
 			}
 			// RemoveDisguise calls both of me
@@ -67,7 +67,7 @@
 			"AddCondition"
 			{
 				"library"	"server"
-				"windows"	"@_?AddCond@CTFPlayerShared@@QAEXW4ETFCond@@MPAVCBaseEntity@@@Z"
+				"windows"	"@?AddCond@CTFPlayerShared@@QAEXW4ETFCond@@MPAVCBaseEntity@@@Z"
 				"linux"		"@_ZN15CTFPlayerShared7AddCondE7ETFCondfP11CBaseEntity"
 			}
 			// "damage_prevented"
@@ -75,39 +75,38 @@
 			"RemoveCondition"
 			{
 				"library"	"server"
-				"windows"	"@_?RemoveCond@CTFPlayerShared@@QAEXW4ETFCond@@_N@Z"
+				"windows"	"@?RemoveCond@CTFPlayerShared@@QAEXW4ETFCond@@_N@Z"
 				"linux"		"@_ZN15CTFPlayerShared10RemoveCondE7ETFCondb"
 			}
 			// CObjectTeleporter::PlayerCanBeTeleported
 			"CanPlayerTeleport"
 			{
-				"library" 	"server"
-				// WRONG!
-				"windows"	"\x55\x8B\xEC\x53\x56\x57\x8B\x7D\x08\x32\xDB"
-				"linux" 	"@_ZN17CObjectTeleporter21PlayerCanBeTeleportedEP9CTFPlayer"
+				"library"	"server"
+				"windows"	"@?PlayerCanBeTeleported@CObjectTeleporter@@QAE_NPAVCTFPlayer@@@Z"
+				"linux"		"@_ZN17CObjectTeleporter21PlayerCanBeTeleportedEP9CTFPlayer"
 			}
 			// CTFGameRules::SetInWaitingForPlayers
 			"SetInWaitingForPlayers"
 			{
-				"library" 	"server"
-				"windows"	"@_?SetInWaitingForPlayers@CTFGameRules@@IAEX_N@Z"
-				"linux" 	"@_ZN12CTFGameRules22SetInWaitingForPlayersEb"
+				"library"	"server"
+				"windows"	"@?SetInWaitingForPlayers@CTFGameRules@@IAEX_N@Z"
+				"linux"		"@_ZN12CTFGameRules22SetInWaitingForPlayersEb"
 			}
 			// Probably want to move this to offset only bcuz inheritence...
 			// CTFWeaponBase::CalcIsAttackCriticalHelper
 			"CalcIsAttackCriticalHelper"
 			{
-				"library" 	"server"
-				"windows" 	"@_?CalcIsAttackCriticalHelper@CTFWeaponBase@@UAE_NXZ"
-				"linux" 	"@_ZN13CTFWeaponBase26CalcIsAttackCriticalHelperEv"
+				"library"	"server"
+				"windows"	"@?CalcIsAttackCriticalHelper@CTFWeaponBase@@UAE_NXZ"
+				"linux"		"@_ZN13CTFWeaponBase26CalcIsAttackCriticalHelperEv"
 			}
 			// Same as above re: offsets...
 			// CTFWeaponBase::CanFireRandomCrit
 			"CalcIsAttackCriticalHelperNoCrits"
 			{
-				"library" 	"server"
-				"windows" 	"@_?CanFireRandomCrit@CTFWeaponBase@@UAE_NXZ"
-				"linux" 	"@_ZN13CTFWeaponBase17CanFireRandomCritEv"
+				"library"	"server"
+				"windows"	"@?CanFireRandomCrit@CTFWeaponBase@@UAE_NXZ"
+				"linux"		"@_ZN13CTFWeaponBase17CanFireRandomCritEv"
 			}
 		}
 	}

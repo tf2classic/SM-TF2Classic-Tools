@@ -7,10 +7,11 @@
 		{
 			/* Offset into LevelShutdown */
 			// See "LevelShutdown"
+			// SM gets this automatically by exporting the var
 			//"gEntList"
 			//{
-			//	"windows" 	"87"
-			//	"linux" 	"99"
+			//	"windows"	"87"
+			//	"linux"		"99"
 			//}
 			//"EntInfo"
 			//{
@@ -30,7 +31,7 @@
 			"LevelShutdown"
 			{
 				"library"	"server"
-				"windows"	"@_?LevelShutdown@CServerGameDLL@@UAEXXZ"
+				"windows"	"@?LevelShutdown@CServerGameDLL@@UAEXXZ"
 				"linux"		"@_ZN14CServerGameDLL13LevelShutdownEv"
 			}
 		}

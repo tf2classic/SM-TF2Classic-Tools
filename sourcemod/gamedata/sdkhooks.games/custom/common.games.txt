@@ -9,27 +9,27 @@
 			// This is CBasePlayer::SetSolidMask and has 2000000h and 1400Bh
 			"CanBeAutobalanced"
 			{
-				"windows" 	"459"
+				"windows"	"459"
 				"linux"		"460"
 			}
 			// "Invalid Condition ID [%d] in trigger %s"
 			// References 0FFFFFFFFh twice
 			"EndTouch"
 			{
-				"windows" 	"100"
+				"windows"	"100"
 				"linux"		"101"
 			}
 			// "RagdollImpact"
 			"FireBullets"
 			{
-				"windows" 	"112"
+				"windows"	"112"
 				"linux"		"113"
 			}
 			// + 5 from FireBullets
 			// mov     eax, [eax+104h]
 			"GetMaxHealth"
 			{
-				"windows" 	"117"
+				"windows"	"117"
 				"linux"		"118"
 			}
 			// Length of CBaseEntity vtable - 13, probably
@@ -41,20 +41,20 @@
 			// https://www.youtube.com/watch?v=WzKKjJuujSs
 			"GroundEntChanged"
 			{
-				"windows" 	"177"
+				"windows"	"177"
 				"linux"		"178"
 			}
 			// "%f: Player %s at [%0.2f %0.2f %0.2f] took %f damage from %s, type"
 			"OnTakeDamage"
 			{
-				"windows" 	"62"
+				"windows"	"62"
 				"linux"		"63"
 			}
 			// "player_hurt" and a bunch of guard variables
 			// References "attacker" twice. Pretty big giveaway
 			"OnTakeDamage_Alive"
 			{
-				"windows" 	"273"
+				"windows"	"273"
 				"linux"		"274"
 			}
 			// "VGUIMenu" is CBasePlayer::ShowViewPortPanel
@@ -64,13 +64,13 @@
 			// 0FFFFFFFDh and 80000000h xmmword
 			"PreThink"
 			{
-				"windows" 	"333"
+				"windows"	"333"
 				"linux"		"334"
 			}
 			// + 1 from PreThink
 			"PostThink"
 			{
-				"windows" 	"334"
+				"windows"	"334"
 				"linux"		"335"
 			}
 			// CTFWeaponBase::AbortReload is - 1 from me
@@ -78,32 +78,32 @@
 			// I call vfuncs CTFWeaponBase::GetMaxClip1 (324) and CBaseCombatWeapon::GetMaxClip2 (325)
 			"Reload"
 			{
-				"windows" 	"281" // 277???
+				"windows"	"281" // 277???
 				"linux"		"282"
 			}
 			// - 4 from SetEntityModel in sdktools.games
 			"SetTransmit"
 			{
-				"windows" 	"20"
+				"windows"	"20"
 				"linux"		"21"
 			}
 			// - 4 from SetTransmit
 			"ShouldCollide"
 			{
-				"windows" 	"16"
+				"windows"	"16"
 				"linux"		"17"
 			}
 			// + 2 from SetTransmit
 			"Spawn"
 			{
-				"windows" 	"22"
+				"windows"	"22"
 				"linux"		"23"
 			}
 			// "Invalid Condition ID [%d] in trigger %s\n"
 			// It's the one where the bottom sub xref doesn't have 0xFFF in it
 			"StartTouch"
 			{
-				"windows" 	"98"
+				"windows"	"98"
 				"linux"		"99"
 			}
 			// "phoneme"
@@ -111,67 +111,67 @@
 			// "%s%s\n"
 			"Think"
 			{
-				"windows" 	"47"
+				"windows"	"47"
 				"linux"		"48"
 			}
 			// + 1 from StartTouch
 			"Touch"
 			{
-				"windows" 	"99"
+				"windows"	"99"
 				"linux"		"100"
 			}
 			// mov     dword ptr [esp+4], offset aBreakableCompu ; "Breakable.Computer"
 			"TraceAttack"
 			{
-				"windows" 	"60"
+				"windows"	"60"
 				"linux"		"61"
 			}
 			// "_DisableUpdateTarget"
 			"Use"
 			{
-				"windows" 	"97"
+				"windows"	"97"
 				"linux"		"98"
 			}
 			// "Updating physics on object in hierarchy"
 			"VPhysicsUpdate"
 			{
-				"windows" 	"158"
+				"windows"	"158"
 				"linux"		"159"
 			}
 			// "%s Blocked by %s\n"
 			"Blocked"
 			{
-				"windows" 	"102"
+				"windows"	"102"
 				"linux"		"103"
 			}
 			// + 3 from Weapon_Drop
 			"Weapon_CanSwitchTo"
 			{
-				// "windows" 	"267" // ???
+				"windows"	"267" // ???
 				"linux"		"268"
 			}
 			// - 3 from Weapon_Drop
 			"Weapon_CanUse"
 			{
-				"windows" 	"261"
+				"windows"	"261"
 				"linux"		"262"
 			}
 			// cmp     dword ptr [ebx+64h], offset aWeaponSmg1 ; "weapon_smg1"
 			"Weapon_Drop"
 			{
-				"windows" 	"264"
+				"windows"	"264"
 				"linux"		"265"
 			}
 			// - 2 from Weapon_Drop
 			"Weapon_Equip"
 			{
-				"windows" 	"262"
+				"windows"	"262"
 				"linux"		"263"
 			}
 			// + 1 from Weapon_Drop
 			"Weapon_Switch"
 			{
-				"windows" 	"265"
+				"windows"	"265"
 				"linux"		"266"
 			}
 		}
