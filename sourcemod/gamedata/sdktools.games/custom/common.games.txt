@@ -162,6 +162,7 @@
 				"linux"		"254"
 				"mac"		"254"
 			}
+		}
 		"Keys"
 		{
 			"GameRulesProxy"	"CTFGameRulesProxy"
