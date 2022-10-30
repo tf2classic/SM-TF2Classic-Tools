@@ -95,20 +95,20 @@
 			}
 			// Probably want to move this to offset only bcuz inheritence...
 			// CTFWeaponBase::CalcIsAttackCriticalHelper
-			// "CalcIsAttackCriticalHelper"
-			// {
-			// 	"library" 	"server"
-			// 	"windows" 	"@_?CalcIsAttackCriticalHelper@CTFWeaponBase@@UAE_NXZ"
-			// 	"linux" 	"@_ZN13CTFWeaponBase26CalcIsAttackCriticalHelperEv"
-			// }
+			"CalcIsAttackCriticalHelper"
+			{
+				"library" 	"server"
+				"windows" 	"@_?CalcIsAttackCriticalHelper@CTFWeaponBase@@UAE_NXZ"
+				"linux" 	"@_ZN13CTFWeaponBase26CalcIsAttackCriticalHelperEv"
+			}
 			// Same as above re: offsets...
 			// CTFWeaponBase::CanFireRandomCrit
-			// "CalcIsAttackCriticalHelperNoCrits"
-			// {
-			// 	"library" 	"server"
-			// 	"windows" 	"@_?CanFireRandomCrit@CTFWeaponBase@@UAE_NXZ"
-			// 	"linux" 	"@_ZN13CTFWeaponBase17CanFireRandomCritEv"
-			// }
+			"CalcIsAttackCriticalHelperNoCrits"
+			{
+				"library" 	"server"
+				"windows" 	"@_?CanFireRandomCrit@CTFWeaponBase@@UAE_NXZ"
+				"linux" 	"@_ZN13CTFWeaponBase17CanFireRandomCritEv"
+			}
 		}
 	}
 }
