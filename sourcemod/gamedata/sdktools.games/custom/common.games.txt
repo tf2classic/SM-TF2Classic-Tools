@@ -176,7 +176,7 @@
 			{
 				"library"	"server"
 				"windows"	"@_?FireOutput@CBaseEntityOutput@@QAEXVvariant_t@@PAVCBaseEntity@@1M@Z"
-				"linux"		"@_?FireOutput@CBaseEntityOutput@@QAEXVvariant_t@@PAVCBaseEntity@@1M@Z"
+				"linux"		"@_ZN17CBaseEntityOutput10FireOutputE9variant_tP11CBaseEntityS2_f"
 			}
 		}
 	}
