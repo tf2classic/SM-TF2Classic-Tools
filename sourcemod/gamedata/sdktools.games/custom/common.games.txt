@@ -1,5 +1,8 @@
 "Games"
 {
+// <sdk2013 engine>
+// https://github.com/alliedmodders/sourcemod/blob/1fbe5e1daaee9ba44164078fe7f59d862786e612/gamedata/sdktools.games/engine.sdk2013.txt
+	/* General Temp Entities */
 	"#default"
 	{
 		"Offsets"
@@ -8,139 +11,17 @@
 			{
 				"windows"	"4"
 				"linux"		"4"
-				"mac"		"4"
 			}
 			"GetTENext"
 			{
 				"windows"	"8"
 				"linux"		"8"
-				"mac"		"8"
 			}
 			"TE_GetServerClass"
 			{
 				"windows"	"0"
 				"linux"		"0"
-				"mac"		"0"
 			}
-			
-			// "NULL Ent in GiveNamedItem!\n"
-			// Dynamic cast CBaseEntity -> CBaseCombatWeapon
-			"GiveNamedItem"
-			{
-				"windows"	"401"
-				"linux"		"402"
-				"mac"		"402"
-			}
-			// CBasePlayer::OnTakeDamageAlive is + 2 from me
-			// Has "player_hurt" string and a bunch of guard variables
-			// References "attacker" twice. Pretty big giveaway
-			"RemovePlayerItem"
-			{
-				"windows"	"271"
-				"linux"		"272"
-				"mac"		"272"
-			}
-			// RemovePlayerItem is + 2 from me
-			"Weapon_GetSlot"
-			{
-				"windows"	"269"
-				"linux"		"270"
-				"mac"		"270"
-			}
-			
-			// xref to CEntityFlame::Create
-			// Has "entityflame", only string in the func, a bit of float ops in there
-			// To get back, find the xref with '10000000h' 2 funcs ish below Create
-			// I have 4 params (float, bool, float, bool)
-			"Ignite"
-			{
-				"windows"	"210"
-				"linux"		"211"
-				"mac"		"211"
-			}
-			// Keep walking up the vtable from Ignite until u see 10000000h and that's probably it
-			// Probably + 4 from Ignite
-			"Extinguish"
-			{
-				"windows"	"214"
-				"linux"		"215"
-				"mac"		"215"
-			}
-			// "base_player_teleported" has more than 1 param
-			"Teleport"
-			{
-				"windows"	"108"
-				"linux"		"109"
-				"mac"		"109"
-			}
-			// CBasePlayer::InitVCollision is probably 11 less than me which has "player_stand"
-			// I have 2 bool params
-			"CommitSuicide"
-			{
-				"windows"	"442"
-				"linux"		"442"
-				"mac"		"442"
-			}
-			// CBaseEntity::FVisible is + 1 from me
-			// Has "CBaseEntity::FVisible" with vprof stuff
-			"GetVelocity"
-			{
-				"windows"	"140"
-				"linux"		"141"
-				"mac"		"141"
-			}
-			// Probably 9 less than GetVelocity
-			"EyeAngles"
-			{
-				"windows"	"131"
-				"linux"		"132"
-				"mac"		"132"
-			}
-			// "Setting CBaseEntity to non-brush model "
-			"SetEntityModel"
-			{
-				"windows"	"24"
-				"linux"		"25"
-				"mac"		"25"
-			}
-			// + 12 from SetEntityModel
-			// Has a lot of input strings i.e. "unhandled input: (%s) -> (%s,%s)\n"
-			"AcceptInput"
-			{
-				"windows"	"36"
-				"linux"		"37"
-				"mac"		"37"
-			}
-			// "%s equipped with %s, proficiency is %s"
-			"WeaponEquip"
-			{
-				"windows"	"261"
-				"linux"		"262"
-				"mac"		"262"
-			}
-			// Probably 3 less than AcceptInput
-			"Activate"
-			{
-				"windows"	"33"
-				"linux"		"34"
-				"mac"		"34"
-			}
-			// Probably 4 less than CBasePlayer::ModifyOrAppendPlayerCriteria
-			// Has "playerhealth"
-			"PlayerRunCmd"
-			{
-				"windows"	"419"
-				"linux"		"420"
-				"mac"		"420"
-			}
-			// Probably 9 less than WeaponEquip
-			"GiveAmmo"
-			{
-				"windows"	"252"
-				"linux"		"253"
-				"mac"		"253"
-			}
-			
 			/**
 			 * CBaseClient::SetUserCVar(char  const*,char  const*);
 			 * Linux offset straight from VTable dump.
@@ -151,7 +32,6 @@
 			{
 				"windows"	"18"
 				"linux"		"58"
-				"mac"		"58"
 			}
 			/**
 			 * CBaseClient::SetName(char  const*);
@@ -162,19 +42,125 @@
 			{
 				"windows"	"17"
 				"linux"		"57"
-				"mac"		"57"
 			}
 			/**
 			 * Offset into CBaseClient - Used by CBaseServer::UpdateUserSettings to determine when changes have been made.
 			 * Find CBaseClient::UpdateUserSettings (strings "net_maxroutable", "cl_updaterate" etc) and the offset is set to 0 near the end.
-			 * Linux: 	mov     byte ptr [esi+98h], 0
+			 * Linux:	mov     byte ptr [esi+98h], 0
 			 * Win:	mov     byte ptr [esi+0A4h], 0
 			 */
 			"InfoChanged"
 			{
 				"windows"	"140"
 				"linux"		"140"
-				"mac"		"140"
+			}
+// </sdk2013 engine>
+			// "NULL Ent in GiveNamedItem!\n"
+			// Dynamic cast CBaseEntity -> CBaseCombatWeapon
+			"GiveNamedItem"
+			{
+				"windows"	"401"
+				"linux"		"402"
+			}
+			// CBasePlayer::OnTakeDamageAlive is + 2 from me
+			// Has "player_hurt" string and a bunch of guard variables
+			// References "attacker" twice. Pretty big giveaway
+			"RemovePlayerItem"
+			{
+				"windows"	"271"
+				"linux"		"272"
+			}
+			// RemovePlayerItem is + 2 from me
+			"Weapon_GetSlot"
+			{
+				"windows"	"269"
+				"linux"		"270"
+			}
+			// xref to CEntityFlame::Create
+			// Has "entityflame", only string in the func, a bit of float ops in there
+			// To get back, find the xref with '10000000h' 2 funcs ish below Create
+			// I have 4 params (float, bool, float, bool)
+			"Ignite"
+			{
+				"windows"	"210"
+				"linux"		"211"
+			}
+			// Keep walking up the vtable from Ignite until u see 10000000h and that's probably it
+			// Probably + 4 from Ignite
+			"Extinguish"
+			{
+				"windows"	"214"
+				"linux"		"215"
+			}
+			// "base_player_teleported" has more than 1 param
+			"Teleport"
+			{
+				"windows"	"108"
+				"linux"		"109"
+			}
+			// CBasePlayer::InitVCollision is probably 11 less than me which has "player_stand"
+			// I have 2 bool params
+			"CommitSuicide"
+			{
+				"windows"	"442"
+				"linux"		"442"
+			}
+			// CBaseEntity::FVisible is + 1 from me
+			// Has "CBaseEntity::FVisible" with vprof stuff
+			"GetVelocity"
+			{
+				"windows"	"140"
+				"linux"		"141"
+			}
+			// Probably 9 less than GetVelocity
+			"EyeAngles"
+			{
+				"windows"	"131"
+				"linux"		"132"
+			}
+			// "Setting CBaseEntity to non-brush model "
+			// Actually ::SetModel
+			"SetEntityModel"
+			{
+				"windows"	"24"
+				"linux"		"25"
+			}
+			// + 12 from SetEntityModel
+			// Has a lot of input strings i.e. "unhandled input: (%s) -> (%s,%s)\n"
+			"AcceptInput"
+			{
+				"windows"	"36"
+				"linux"		"37"
+			}
+			// "%s equipped with %s, proficiency is %s"
+			// Actually ::Weapon_Equip
+			"WeaponEquip"
+			{
+				"windows"	"262"
+				"linux"		"262"
+			}
+			// Probably 3 less than AcceptInput
+			"Activate"
+			{
+				"windows"	"33"
+				"linux"		"34"
+				"mac"		"34"
+			}
+			// Probably 4 less than CBasePlayer::ModifyOrAppendPlayerCriteria
+			// Has "playerhealth"
+			// Actually ::PlayerRunCommand
+			"PlayerRunCmd"
+			{
+				"windows"	"419"
+				"linux"		"420"
+				"mac"		"420"
+			}
+			// Probably 9 less than WeaponEquip
+			"GiveAmmo"
+			{
+				"windows"	"253"
+				"linux"		"254"
+				"mac"		"254"
 			}
 		}
 		"Keys"
@@ -184,13 +170,14 @@
 		}
 		"Signatures"
 		{
+			// CBaseEntityOutput::FireOutput
 			// (%0.2f) output: (%s,%s) -> (%s,%s,%.1f)
+			// DLL_EXPORTed, so this will never change.
 			"FireOutput"
 			{
 				"library"	"server"
-				"windows"	"\x55\x8B\xEC\x81\xEC\x30\x01\x00\x00\xA1\x2A\x2A\x2A\x2A\x33\xC5\x89\x45\xFC\x53"
-				"linux"		"\x55\x89\xE5\x57\x56\x53\x81\xEC\x8C\x01\x00\x00\x8B\x45\x08\x8B\x75\x0C"
-				"mac"		"\x55\x89\xE5\x57\x56\x53\x81\xEC\x8C\x01\x00\x00\x8B\x45\x08\x8B\x75\x0C"
+				"windows"	"@?FireOutput@CBaseEntityOutput@@QAEXVvariant_t@@PAVCBaseEntity@@1M@Z"
+				"linux"		"@_ZN17CBaseEntityOutput10FireOutputE9variant_tP11CBaseEntityS2_f"
 			}
 		}
 	}
