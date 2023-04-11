@@ -1,6 +1,6 @@
 "Games"
 {
-	"tf2classic"
+	"#default"
 	{
 		"Offsets"
 		{
