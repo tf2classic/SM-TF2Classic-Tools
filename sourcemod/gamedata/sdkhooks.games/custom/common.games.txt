@@ -9,28 +9,28 @@
 			// This is CBasePlayer::SetSolidMask and has 2000000h and 1400Bh
 			"CanBeAutobalanced"
 			{
-				"windows"	"459"
-				"linux"		"460"
+				"windows"	"460"
+				"linux"		"461"
 			}
 			// "Invalid Condition ID [%d] in trigger %s"
 			// References 0FFFFFFFFh twice
 			"EndTouch"
 			{
-				"windows"	"100"
-				"linux"		"101"
+				"windows"	"101"
+				"linux"		"102"
 			}
 			// "RagdollImpact"
 			"FireBullets"
 			{
-				"windows"	"112"
-				"linux"		"113"
+				"windows"	"113"
+				"linux"		"114"
 			}
 			// + 5 from FireBullets
 			// mov     eax, [eax+104h]
 			"GetMaxHealth"
 			{
-				"windows"	"117"
-				"linux"		"118"
+				"windows"	"118"
+				"linux"		"119"
 			}
 			// Length of CBaseEntity vtable - 13, probably
 			// Get that vtable offset then load up CBasePlayer's vtable at or around that offset
@@ -47,8 +47,8 @@
 			// "%f: Player %s at [%0.2f %0.2f %0.2f] took %f damage from %s, type"
 			"OnTakeDamage"
 			{
-				"windows"	"62"
-				"linux"		"63"
+				"windows"	"63"
+				"linux"		"64"
 			}
 			// "player_hurt" and a bunch of guard variables
 			// References "attacker" twice. Pretty big giveaway
