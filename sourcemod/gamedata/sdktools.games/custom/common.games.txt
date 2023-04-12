@@ -109,8 +109,8 @@
 			// Has "CBaseEntity::FVisible" with vprof stuff
 			"GetVelocity"
 			{
-				"windows"	"140"
-				"linux"		"141"
+				"windows"	"141"
+				"linux"		"142"
 			}
 			// Probably 9 less than GetVelocity
 			"EyeAngles"
