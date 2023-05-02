@@ -59,22 +59,22 @@
 			// Dynamic cast CBaseEntity -> CBaseCombatWeapon
 			"GiveNamedItem"
 			{
-				"windows"	"401"
-				"linux"		"402"
+				"windows"	"402"
+				"linux"		"403"
 			}
 			// CBasePlayer::OnTakeDamageAlive is + 2 from me
 			// Has "player_hurt" string and a bunch of guard variables
 			// References "attacker" twice. Pretty big giveaway
 			"RemovePlayerItem"
 			{
-				"windows"	"271"
-				"linux"		"272"
+				"windows"	"272"
+				"linux"		"273"
 			}
 			// RemovePlayerItem is + 2 from me
 			"Weapon_GetSlot"
 			{
-				"windows"	"269"
-				"linux"		"270"
+				"windows"	"270"
+				"linux"		"271"
 			}
 			// xref to CEntityFlame::Create
 			// Has "entityflame", only string in the func, a bit of float ops in there
@@ -82,85 +82,82 @@
 			// I have 4 params (float, bool, float, bool)
 			"Ignite"
 			{
-				"windows"	"210"
-				"linux"		"211"
+				"windows"	"211"
+				"linux"		"212"
 			}
 			// Keep walking up the vtable from Ignite until u see 10000000h and that's probably it
 			// Probably + 4 from Ignite
 			"Extinguish"
 			{
-				"windows"	"214"
-				"linux"		"215"
+				"windows"	"215"
+				"linux"		"216"
 			}
 			// "base_player_teleported" has more than 1 param
 			"Teleport"
 			{
-				"windows"	"108"
-				"linux"		"109"
+				"windows"	"109"
+				"linux"		"110"
 			}
 			// CBasePlayer::InitVCollision is probably 11 less than me which has "player_stand"
 			// I have 2 bool params
 			"CommitSuicide"
 			{
-				"windows"	"442"
-				"linux"		"442"
+				"windows"	"443"
+				"linux"		"443"
 			}
 			// CBaseEntity::FVisible is + 1 from me
 			// Has "CBaseEntity::FVisible" with vprof stuff
 			"GetVelocity"
 			{
-				"windows"	"140"
-				"linux"		"141"
+				"windows"	"141"
+				"linux"		"142"
 			}
 			// Probably 9 less than GetVelocity
 			"EyeAngles"
 			{
-				"windows"	"131"
-				"linux"		"132"
+				"windows"	"132"
+				"linux"		"133"
 			}
 			// "Setting CBaseEntity to non-brush model "
 			// Actually ::SetModel
 			"SetEntityModel"
 			{
-				"windows"	"24"
-				"linux"		"25"
+				"windows"	"25"
+				"linux"		"26"
 			}
 			// + 12 from SetEntityModel
 			// Has a lot of input strings i.e. "unhandled input: (%s) -> (%s,%s)\n"
 			"AcceptInput"
 			{
-				"windows"	"36"
-				"linux"		"37"
+				"windows"	"37"
+				"linux"		"38"
 			}
 			// "%s equipped with %s, proficiency is %s"
 			// Actually ::Weapon_Equip
 			"WeaponEquip"
 			{
-				"windows"	"262"
-				"linux"		"262"
+				"windows"	"263"
+				"linux"		"264"
 			}
 			// Probably 3 less than AcceptInput
 			"Activate"
 			{
-				"windows"	"33"
-				"linux"		"34"
-				"mac"		"34"
+				"windows"	"34"
+				"linux"		"35"
 			}
 			// Probably 4 less than CBasePlayer::ModifyOrAppendPlayerCriteria
 			// Has "playerhealth"
 			// Actually ::PlayerRunCommand
 			"PlayerRunCmd"
 			{
-				"windows"	"419"
-				"linux"		"420"
-				"mac"		"420"
+				"windows"	"420"
+				"linux"		"421"
 			}
 			// Probably 9 less than WeaponEquip
 			"GiveAmmo"
 			{
-				"windows"	"253"
-				"linux"		"254"
-				"mac"		"254"
+				"windows"	"254"
+				"linux"		"255"
 			}
 		}
 		"Keys"
