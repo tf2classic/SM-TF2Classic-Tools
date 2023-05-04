@@ -6,11 +6,11 @@
 #pragma semicolon 1
 #include <tf2c>
 
-#define PLUGIN_VERSION 		"1.0.1"
+#define PLUGIN_VERSION 		"1.1.0"
 
 public Plugin myinfo =  {
 	name = "TF2 Classic Tools", 
-	author = "Scag", 
+	author = "Scag, https://sappho.io", 
 	description = "TF2 Classic natives and forwards for SourceMod", 
 	version = PLUGIN_VERSION, 
 	url = ""
@@ -373,7 +373,6 @@ public MRESReturn CTFPlayerShared_RemoveCond(Address pThis, Handle hParams)
 	CondShit shit;
 	shit.cond = DHookGetParam(hParams, 1);
 	g_Bullshit2.PushArray(shit, sizeof(shit));
-	LogMessage("%i ", shit.cond);
 
 	if (client == -1 || !IsPlayerAlive(client))	// Sanity check
 		return MRES_Ignored;
@@ -719,8 +718,6 @@ stock Handle DHookCreateDetourEx(GameData conf, const char[] name, CallingConven
 			LogError("Could not set %s from config!", name);
 	return h;
 }
-// Following 3 stocks are from nosoop's stocksoop memory.inc. Thanks nosoop! Buy him a coffee:
-// https://www.buymeacoffee.com/nosoop
 /**
  * Retrieves an entity index from a raw entity handle address.
  * 
