@@ -166,6 +166,7 @@ enum TFCond
 	TFCond_PasstimeInterception, //106: Used when a player intercepts the Jack/Ball
 	TFCond_SwimmingNoEffects, //107: Swimming in the air without animations or overlay
 	TFCond_EyeaductUnderworld, //108: Refills max health, short Uber, escaped the underworld message on removal
+	// These names are wrong, fix this bullshit in our code
 	TFCond_KingRune, //109: Increased max health and applies TFCond_KingAura
 	TFCond_PlagueRune, //110: Radius health kit stealing, increased max health, TFCond_Plague on touching a victim
 	TFCond_SupernovaRune, //111: Charge meter passively increasing, when charged activiated causes radius Bonk stun
@@ -186,8 +187,10 @@ enum TFCond
 	TFCond_RocketPack, //125: Thermal Thruster launched effects, prevents reusing
 	TFCond_LostFooting, //126: Less ground friction
 	TFCond_AirCurrent, //127: Reduced air control and friction
+	// names no longer wrong
+	TFCond_MirvSlow,	// 128: Used by MIRV on impact damage to give a longer lasting slow to players
 
-	TFCond_LAST
+	TFCond_LAST // 129
 };
 
 const float TFCondDuration_Infinite = -1.0;
@@ -602,7 +605,7 @@ stock int TF2_GetPlayerResourceData(int client, TFResourceType type)
 		return -1;
 	}
 
-	int entity = TF2_GetResourceEntity();
+	int entity = GetPlayerResourceEntity();
 
 	if (entity == -1)
 	{
@@ -639,7 +642,7 @@ stock bool TF2_SetPlayerResourceData(int client, TFResourceType type, any value)
 		return false;
 	}
 
-	int entity = TF2_GetResourceEntity();
+	int entity = GetPlayerResourceEntity();
 
 	if (entity == -1)
 	{

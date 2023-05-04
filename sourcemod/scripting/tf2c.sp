@@ -72,6 +72,7 @@ enum struct stun_struct_t
 	}
 }
 
+
 stun_struct_t
 	g_Stuns[MAXPLAYERS+1]
 ;
@@ -89,6 +90,7 @@ enum struct CondShit
 }
 
 #define CHECK(%1,%2) if (!(%1)) LogError("Could not load native for \"" ... %2 ... "\"")
+Address m_pOuter = Address_Null;
 
 // We need to do this to fix some stupid race condition that I don't give a shit enough about to properly debug
 // -sappho
@@ -250,7 +252,8 @@ void WaitAFrame()
 	// 2 blocksize because cond + time
 	g_Bullshit1 = new ArrayStack(sizeof(CondShit));
 	g_Bullshit2 = new ArrayStack(sizeof(CondShit));
-
+	m_pOuter = view_as<Address>(FindSendPropInfo("CTFPlayer", "m_Shared"));
+	PrintToServer("----> CTFPlayer::m_Shared / m_pOuter offs = %i/0x%x", m_pOuter, m_pOuter);
 	PrintToServer("TF2Classic-Tools loaded!");
 }
 
@@ -313,10 +316,11 @@ public Action OnPlayerRunCmd(int client, int &buttons)
 bool g_iCondAdd[MAXPLAYERS+1][view_as< int >(TFCond_LAST)*2];
 bool g_iCondRemove[MAXPLAYERS+1][view_as< int >(TFCond_LAST)*2];
 
+
+
 public MRESReturn CTFPlayerShared_AddCond(Address pThis, Handle hParams)
 {
-	Address m_pOuter = view_as< Address >(FindSendPropInfo("CTFPlayer", "m_nNumHealers") - FindSendPropInfo("CTFPlayer", "m_Shared") + 4);
-	int client = GetEntityFromAddress(view_as< Address >(LoadFromAddress(pThis + m_pOuter, NumberType_Int32)));
+	int client = GetEntityFromAddress( pThis - m_pOuter );
 
 	CondShit shit;
 	shit.cond = DHookGetParam(hParams, 1);
@@ -335,8 +339,7 @@ public MRESReturn CTFPlayerShared_AddCond(Address pThis, Handle hParams)
 }
 public MRESReturn CTFPlayerShared_AddCondPost(Address pThis, Handle hParams)
 {
-	Address m_pOuter = view_as< Address >(FindSendPropInfo("CTFPlayer", "m_nNumHealers") - FindSendPropInfo("CTFPlayer", "m_Shared") + 4);
-	int client = GetEntityFromAddress(view_as< Address >(LoadFromAddress(pThis + m_pOuter, NumberType_Int32)));
+	int client = GetEntityFromAddress( pThis - m_pOuter );
 
 	CondShit shit;
 	g_Bullshit1.PopArray(shit, sizeof(shit));
@@ -365,12 +368,12 @@ public MRESReturn CTFPlayerShared_AddCondPost(Address pThis, Handle hParams)
 
 public MRESReturn CTFPlayerShared_RemoveCond(Address pThis, Handle hParams)
 {
-	Address m_pOuter = view_as< Address >(FindSendPropInfo("CTFPlayer", "m_nNumHealers") - FindSendPropInfo("CTFPlayer", "m_Shared") + 4);
-	int client = GetEntityFromAddress(view_as< Address >(LoadFromAddress(pThis + m_pOuter, NumberType_Int32)));
+	int client = GetEntityFromAddress( pThis - m_pOuter );
 
 	CondShit shit;
 	shit.cond = DHookGetParam(hParams, 1);
 	g_Bullshit2.PushArray(shit, sizeof(shit));
+	LogMessage("%i ", shit.cond);
 
 	if (client == -1 || !IsPlayerAlive(client))	// Sanity check
 		return MRES_Ignored;
@@ -382,8 +385,7 @@ public MRESReturn CTFPlayerShared_RemoveCond(Address pThis, Handle hParams)
 }
 public MRESReturn CTFPlayerShared_RemoveCondPost(Address pThis, Handle hParams)
 {
-	Address m_pOuter = view_as< Address >(FindSendPropInfo("CTFPlayer", "m_nNumHealers") - FindSendPropInfo("CTFPlayer", "m_Shared") + 4);
-	int client = GetEntityFromAddress(view_as< Address >(LoadFromAddress(pThis + m_pOuter, NumberType_Int32)));
+	int client = GetEntityFromAddress( pThis - m_pOuter );
 
 	CondShit shit;
 	g_Bullshit2.PopArray(shit, sizeof(shit));
@@ -717,17 +719,65 @@ stock Handle DHookCreateDetourEx(GameData conf, const char[] name, CallingConven
 			LogError("Could not set %s from config!", name);
 	return h;
 }
+// Following 3 stocks are from nosoop's stocksoop memory.inc. Thanks nosoop! Buy him a coffee:
+// https://www.buymeacoffee.com/nosoop
+/**
+ * Retrieves an entity index from a raw entity handle address.
+ * 
+ * Note that SourceMod's entity conversion routine is an implementation detail that may change.
+ * 
+ * @param addr			Address to a memory location.
+ * @return				Entity index, or -1 if not valid.
+ */
+stock int LoadEntityHandleFromAddress(Address addr) {
+	return EntRefToEntIndex(LoadFromAddress(addr, NumberType_Int32) | (1 << 31));
+}
 
-// Props to nosoop
-stock int GetEntityFromAddress(Address pEntity)
-{
-	if (pEntity == Address_Null)
-		return -1;
+/**
+ * Stores an entity into a raw entity handle address.  Stores zero if the entity is not valid.
+ * 
+ * Note that SourceMod's entity conversion routine is an implementation detail that may change.
+ * 
+ * @param addr			Address to a memory location.
+ * @param entity		Entity index.
+ */
+stock void StoreEntityHandleToAddress(Address addr, int entity) {
+	StoreToAddress(addr, IsValidEntity(entity)? EntIndexToEntRef(entity) & ~(1 << 31) : 0,
+			NumberType_Int32);
+}
 
-	int ent = LoadFromAddress(pEntity + view_as< Address >(FindDataMapInfo(0, "m_angRotation") + 12), NumberType_Int32) & 0xFFF;
-	if (!ent || ent == 0xFFF)
-		return -1;
-	return ent;
+/**
+ * Returns an entity index from its address by attempting to read the
+ * CBaseEntity::m_RefEHandle member.  This assumes the address of a CBaseEntity is
+ * passed in.
+ * 
+ * @param pEntity		Address of an entity.
+ * @return				Entity index, or -1 if not valid.
+ */
+stock int GetEntityFromAddress(Address pEntity) {
+	static int offs_RefEHandle;
+	if (offs_RefEHandle) {
+		return LoadEntityHandleFromAddress(pEntity + view_as<Address>(offs_RefEHandle));
+	}
+	
+	// if we don't have it already, attempt to lookup offset based on SDK information
+	// CWorld is derived from CBaseEntity so it should have both offsets
+	int offs_angRotation = FindDataMapInfo(0, "m_angRotation"),
+			offs_vecViewOffset = FindDataMapInfo(0, "m_vecViewOffset");
+	if (offs_angRotation == -1) {
+		ThrowError("Could not find offset for ((CBaseEntity) CWorld)::m_angRotation");
+	} else if (offs_vecViewOffset == -1) {
+		ThrowError("Could not find offset for ((CBaseEntity) CWorld)::m_vecViewOffset");
+	} else if ((offs_angRotation + 0x0C) != (offs_vecViewOffset - 0x04)) {
+		char game[32];
+		GetGameFolderName(game, sizeof(game));
+		ThrowError("Could not confirm offset of CBaseEntity::m_RefEHandle "
+				... "(incorrect assumption for game '%s'?)", game);
+	}
+	
+	// offset seems right, cache it for the next call
+	offs_RefEHandle = offs_angRotation + 0x0C;
+	return GetEntityFromAddress(pEntity);
 }
 stock Handle DHookCreateEx(Handle gc, const char[] key, HookType hooktype, ReturnType returntype, ThisPointerType thistype, DHookCallback callback)
 {
