@@ -718,6 +718,8 @@ stock Handle DHookCreateDetourEx(GameData conf, const char[] name, CallingConven
 			LogError("Could not set %s from config!", name);
 	return h;
 }
+// Following 3 stocks are from nosoop's stocksoop memory.inc. Thanks nosoop! Buy him a coffee:
+// https://www.buymeacoffee.com/nosoop
 /**
  * Retrieves an entity index from a raw entity handle address.
  * 
