@@ -34,7 +34,7 @@ Handle
 	hDisguisePlayer,
 	hRemovePlayerDisguise
 ;
-
+/*
 enum struct stun_struct_t
 {
 	int hPlayer;
@@ -76,6 +76,7 @@ enum struct stun_struct_t
 stun_struct_t
 	g_Stuns[MAXPLAYERS+1]
 ;
+*/
 
 // I hate windows, so, so much
 ArrayStack
@@ -233,12 +234,13 @@ void WaitAFrame()
 
 	delete conf;
 
+/*
 	for (int i = MaxClients; i; --i)
 		if (IsClientInGame(i))
 			OnClientPutInServer(i);
 
 	HookEvent("player_death", OnPlayerDeath);
-
+*/
 	// SO
 	// Params aren't saved inside of post hooks, so we gotta get fancy, reaaaaally fancy
 	// NOT ONLY THAT!
@@ -257,6 +259,7 @@ void WaitAFrame()
 	PrintToServer("TF2Classic-Tools loaded!");
 }
 
+/*
 public void OnClientPutInServer(int client)
 {
 	g_Stuns[client].Reset();
@@ -302,6 +305,7 @@ public void TF2_OnConditionRemoved(int client, TFCond cond)
 		g_Stuns[client].KillAllParticles(client);
 }
 
+
 public Action OnPlayerRunCmd(int client, int &buttons)
 {
 	if (TF2_IsPlayerInCondition(client, TFCond_Dazed))
@@ -311,6 +315,7 @@ public Action OnPlayerRunCmd(int client, int &buttons)
 	}
 	return Plugin_Continue;
 }
+*/
 
 // x2 because conditions will be added maybe maybe maybe?
 bool g_iCondAdd[MAXPLAYERS+1][view_as< int >(TFCond_LAST)*2];
@@ -629,6 +634,7 @@ public any Native_TF2_RemovePlayerDisguise(Handle plugin, int numParams)
 // No support, gotta do it the fun way
 public any Native_TF2_StunPlayer(Handle plugin, int numParams)
 {
+/*
 	int client = GetNativeCell(1);
 	DECLARE_BS(client);
 
@@ -707,6 +713,7 @@ public any Native_TF2_StunPlayer(Handle plugin, int numParams)
 
 	// This condition literally isn't touched in the source, so I have to do fucking EVERYTHING
 	TF2_AddCondition(client, TFCond_Dazed, g_Stuns[client].flDuration);
+*/
 	return 0;
 }
 
