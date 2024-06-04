@@ -189,8 +189,10 @@ enum TFCond
 	TFCond_AirCurrent, //127: Reduced air control and friction
 	// names no longer wrong
 	TFCond_MirvSlow,	// 128: Used by MIRV on impact damage to give a longer lasting slow to players
-
-	TFCond_LAST // 129
+	TFCond_MeleeMarkedForDeath, // 129: Take crits from melee
+	TFCond_MeleeMarkedForDeathSilent, // 130: Take crits from melee ( Silent )
+	TFCond_LaunchedSelf, // 131: performing a tf_weapon_doubleshotgun jump via apply_self_knockback
+	TFCond_LAST // 132
 };
 
 const float TFCondDuration_Infinite = -1.0;
