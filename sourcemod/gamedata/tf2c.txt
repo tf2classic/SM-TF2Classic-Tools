@@ -108,6 +108,31 @@
 				"windows"	"@?CanFireRandomCrit@CTFWeaponBase@@UAE_NXZ"
 				"linux"		"@_ZN13CTFWeaponBase17CanFireRandomCritEv"
 			}
+			// xref to CTFPlayerShared::Burn
+			// CTFPlayer::SetPowerplayEnabled
+			"SetPowerplayEnabled"
+			{
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x80\x7D\x08\x00\x56\x57"
+				"linux"		"@_ZN9CTFPlayer19SetPowerplayEnabledEb"
+			}
+			// xref to "Weapon_Brick.ImpactHard", function before RandomInt
+			// CTFPlayerShared::StunPlayer
+			"StunPlayer"
+			{
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x83\xEC\x2C\x53\x8B\xD9\x8B\x83\x3C\x07\x00\x00"
+				"linux"		"@_ZN15CTFPlayerShared10StunPlayerEffiP9CTFPlayer"
+			}
+			// CTFPlayerShared::Burn xref to CTFPlayer::OnTakeDamage_Alive
+			// func call below with 5 args and 2 constants (4, 0)
+			// CTFPlayerShared::MakeBleed
+			"MakeBleed"
+			{
+				"library" 	"server"
+				"windows"	"\x55\x8B\xEC\x83\xEC\x30\x56\x57\x8B\xB9\x58\x05\x00\x00"
+				"linux"		"@_ZN15CTFPlayerShared9MakeBleedEP9CTFPlayerP13CTFWeaponBasefib"
+			}
 		}
 	}
 }
