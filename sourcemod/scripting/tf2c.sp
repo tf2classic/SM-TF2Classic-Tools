@@ -703,7 +703,7 @@ public any Native_TF2_SetPlayerPowerPlay(Handle plugin, int numParams)
 
 public any Native_TF2_StunPlayer(Handle plugin, int numParams)
 {
-	CHECK(hMakeBleed, "StunPlayer");
+	CHECK(hStunPlayer, "StunPlayer");
 	int client = GetNativeCell(1);
 	DECLARE_BS(client);
 
