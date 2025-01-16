@@ -31,64 +31,64 @@
 			/* CBasePlayer::GiveNamedItem(char const*, int) */
 			"GiveNamedItem"
 			{
-				"linux"		"434"
-				"windows"	"433"
+				"linux"		"436"
+				"windows"	"435"
 			}
 
 			/* CBaseCombatCharacter::RemovePlayerItem(CBaseCombatWeapon*) */
 			"RemovePlayerItem"
 			{
-				"linux"		"296"
-				"windows"	"295"
+				"linux"		"298"
+				"windows"	"297"
 			}
 
 			/* CBaseCombatCharacter::Weapon_GetSlot(int) const */
 			"Weapon_GetSlot"
 			{
-				"linux"		"294"
-				"windows"	"293"
+				"linux"		"296"
+				"windows"	"295"
 			}
 
 			/* CBaseAnimating::Ignite(float, bool, float, bool) */
 			"Ignite"
 			{
-				"linux"		"229"
-				"windows"	"228"
+				"linux"		"231"
+				"windows"	"230"
 			}
 
 			/* CBaseAnimating::Extinguish() */
 			"Extinguish"
 			{
-				"linux"		"233"
-				"windows"	"232"
+				"linux"		"235"
+				"windows"	"234"
 			}
 
 			/* CBaseEntity::Teleport(Vector const*, QAngle const*, Vector const*) */
 			"Teleport"
 			{
-				"linux"		"120"
-				"windows"	"119"
+				"linux"		"122"
+				"windows"	"121"
 			}
 
 			/* CBasePlayer::CommitSuicide(bool, bool) */
 			"CommitSuicide"
 			{
-				"linux"		"477"
-				"windows"	"477"
+				"linux"		"479"
+				"windows"	"479"
 			}
 
 			/* CBaseEntity::GetVelocity(Vector*, Vector*) */
 			"GetVelocity"
 			{
-				"linux"		"154"
-				"windows"	"153"
+				"linux"		"156"
+				"windows"	"155"
 			}
 
 			/* CBaseEntity::EyeAngles() */
 			"EyeAngles"
 			{
-				"linux"		"145"
-				"windows"	"144"
+				"linux"		"147"
+				"windows"	"146"
 			}
 
 			/* CBaseEntity::SetModel(char const*) */
@@ -101,36 +101,36 @@
 			/* CBaseEntity::AcceptInput(char const*, CBaseEntity*, CBaseEntity*, variant_t, int) */
 			"AcceptInput"
 			{
-				"linux"		"40"
-				"windows"	"39"
+				"linux"		"41"
+				"windows"	"40"
 			}
 
 			/* CBaseCombatCharacter::Weapon_Equip(CBaseCombatWeapon*) */
 			"WeaponEquip"
 			{
-				"linux"		"285"
-				"windows"	"284"
+				"linux"		"287"
+				"windows"	"286"
 			}
 
 			/* CBaseEntity::Activate() */
 			"Activate"
 			{
-				"linux"		"37"
-				"windows"	"36"
+				"linux"		"38"
+				"windows"	"37"
 			}
 
 			/* CBasePlayer::PlayerRunCommand(CUserCmd*, IMoveHelper*) */
 			"PlayerRunCmd"
 			{
-				"linux"		"454"
-				"windows"	"453"
+				"linux"		"456"
+				"windows"	"455"
 			}
 
 			/* CBaseCombatCharacter::GiveAmmo(int, int, bool) */
 			"GiveAmmo"
 			{
-				"linux"		"275"
-				"windows"	"274"
+				"linux"		"277"
+				"windows"	"276"
 			}
 		}
 
