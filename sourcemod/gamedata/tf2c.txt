@@ -10,21 +10,21 @@
 			// I'm - 2 from that
 			"ForceRespawn"
 			{
-				"linux"		"358"
-				"windows"	"357"
+				"linux"		"360"
+				"windows"	"359"
 			}
 			// "RandomCritRapid"
 			"CalcIsAttackCriticalHelper"
 			{
-				"linux"		"430"
-				"windows"	"426"
+				"linux"		"432"
+				"windows"	"428"
 			}
 			// + 1 from CalcIsAttackCriticalHelper
 			// This is ::CanFireRandomCrit
 			"CalcIsAttackCriticalHelperNoCrits"
 			{
-				"linux"		"431"
-				"windows"	"427"
+				"linux"		"433"
+				"windows"	"429"
 			}
 		}
 		"Signatures"
