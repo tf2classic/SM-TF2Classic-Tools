@@ -32,7 +32,10 @@ Handle
 	hAddCondition,
 	hRemoveCondition,
 	hDisguisePlayer,
-	hRemovePlayerDisguise
+	hRemovePlayerDisguise,
+	hSetPlayerPowerPlay,
+	hStunPlayer,
+	hMakeBleed
 ;
 /*
 enum struct stun_struct_t
@@ -164,6 +167,39 @@ void WaitAFrame()
 	hRemovePlayerDisguise = EndPrepSDKCall();
 	CHECK(hRemovePlayerDisguise, "TF2_RemovePlayerDisguise");
 	PrintToServer("-> TF2_RemovePlayerDisguise");
+
+	// PowerPlay
+	StartPrepSDKCall(SDKCall_Player);
+	PrepSDKCall_SetFromConf(conf, SDKConf_Signature, "SetPowerplayEnabled");
+	PrepSDKCall_AddParameter(SDKType_Bool, SDKPass_ByValue);
+	hSetPlayerPowerPlay = EndPrepSDKCall();
+	CHECK(hSetPlayerPowerPlay, "TF2_SetPlayerPowerPlay");
+	PrintToServer("-> TF2_SetPlayerPowerPlay");
+
+	// StunPlayer
+	// CTFPlayerShared::StunPlayer(float, float, int, CTFPlayer *)
+	StartPrepSDKCall(SDKCall_Raw);
+	PrepSDKCall_SetFromConf(conf, SDKConf_Signature, "StunPlayer");
+	PrepSDKCall_AddParameter(SDKType_Float, SDKPass_ByValue);
+	PrepSDKCall_AddParameter(SDKType_Float, SDKPass_ByValue);
+	PrepSDKCall_AddParameter(SDKType_PlainOldData, SDKPass_ByValue);
+	PrepSDKCall_AddParameter(SDKType_CBasePlayer, SDKPass_Pointer, VDECODE_FLAG_ALLOWNULL);
+	hStunPlayer = EndPrepSDKCall();
+	CHECK(hStunPlayer, "TF2_StunPlayer");
+	PrintToServer("-> TF2_StunPlayer");
+
+	// MakeBleed 
+	// CTFPlayerShared::MakeBleed(CTFPlayer *, CTFWeaponBase *, float, int, bool)
+	StartPrepSDKCall(SDKCall_Raw);
+	PrepSDKCall_SetFromConf(conf, SDKConf_Signature, "MakeBleed");
+	PrepSDKCall_AddParameter(SDKType_CBasePlayer, SDKPass_Pointer, VDECODE_FLAG_ALLOWNULL);
+	PrepSDKCall_AddParameter(SDKType_CBaseEntity, SDKPass_Pointer, VDECODE_FLAG_ALLOWNULL);
+	PrepSDKCall_AddParameter(SDKType_Float, SDKPass_ByValue);
+	PrepSDKCall_AddParameter(SDKType_PlainOldData, SDKPass_ByValue);
+	PrepSDKCall_AddParameter(SDKType_Bool, SDKPass_ByValue);
+	hMakeBleed = EndPrepSDKCall();
+	CHECK(hMakeBleed, "TF2_MakeBleed");
+	PrintToServer("-> TF2_MakeBleed");
 
 	// DHooks
 	Handle hook;
@@ -505,6 +541,8 @@ public APLRes AskPluginLoad2(Handle self, bool late, char[] error, int max)
 	CreateNative("TF2_DisguisePlayer", Native_TF2_DisguisePlayer);
 	CreateNative("TF2_RemovePlayerDisguise", Native_TF2_RemovePlayerDisguise);
 	CreateNative("TF2_StunPlayer", Native_TF2_StunPlayer);
+	CreateNative("TF2_MakeBleed", Native_TF2_MakeBleed);
+	CreateNative("TF2_SetPlayerPowerPlay", Native_TF2_SetPlayerPowerPlay);
 
 	hOnConditionAdded = new GlobalForward("TF2_OnConditionAdded", ET_Ignore, Param_Cell, Param_Cell, Param_Float);
 	hOnConditionRemoved = new GlobalForward("TF2_OnConditionRemoved", ET_Ignore, Param_Cell, Param_Cell);
@@ -631,10 +669,64 @@ public any Native_TF2_RemovePlayerDisguise(Handle plugin, int numParams)
 	return 0;
 }
 
-// No support, gotta do it the fun way
+public any Native_TF2_MakeBleed(Handle plugin, int numParams)
+{
+	CHECK(hMakeBleed, "MakeBleed");
+	int client = GetNativeCell(1);
+	DECLARE_BS(client);
+
+	int attacker = GetNativeCell(2);
+
+	if (!(0 < attacker <= MaxClients))
+		return ThrowNativeError(SP_ERROR_NATIVE, "Invalid attacker index (%d) specified.", attacker);
+
+	if (!IsClientInGame(attacker))
+		return ThrowNativeError(SP_ERROR_NATIVE, "Attacker %d is not in-game.", attacker);
+
+	float duration = GetNativeCell(3);
+
+	SDKCall(hMakeBleed, GetEntityAddress(client) + view_as< Address >(FindSendPropInfo("CTFPlayer", "m_Shared")), attacker, -1, duration, 4, false);
+	return 0;
+}
+
+public any Native_TF2_SetPlayerPowerPlay(Handle plugin, int numParams)
+{
+	CHECK(hSetPlayerPowerPlay, "SetPlayerPowerplay");
+	int client = GetNativeCell(1);
+	DECLARE_BS(client);
+
+	bool value = GetNativeCell(2);
+
+	SDKCall(hSetPlayerPowerPlay, client, value);
+	return 0;
+}
+
 public any Native_TF2_StunPlayer(Handle plugin, int numParams)
 {
-/*
+	CHECK(hStunPlayer, "StunPlayer");
+	int client = GetNativeCell(1);
+	DECLARE_BS(client);
+
+	float duration = GetNativeCell(2);
+	float slowdown = GetNativeCell(3);
+	int flags = GetNativeCell(4);
+
+	int attacker = GetNativeCell(5);
+	if (attacker) {
+		if (!(-1 <= attacker <= MaxClients))
+			return ThrowNativeError(SP_ERROR_NATIVE, "Attacker index %d is invalid.", attacker);
+		if (attacker > 0 && !IsClientInGame(attacker))
+			return ThrowNativeError(SP_ERROR_NATIVE, "Attacker %d is not in-game", attacker);
+	}
+	else attacker = -1;
+
+	SDKCall(hStunPlayer, GetEntityAddress(client) + view_as< Address >(FindSendPropInfo("CTFPlayer", "m_Shared")), duration, slowdown, flags, attacker);
+	return 0;
+}
+
+// No support, gotta do it the fun way
+/*public any Native_TF2_StunPlayer(Handle plugin, int numParams)
+{
 	int client = GetNativeCell(1);
 	DECLARE_BS(client);
 
@@ -713,9 +805,8 @@ public any Native_TF2_StunPlayer(Handle plugin, int numParams)
 
 	// This condition literally isn't touched in the source, so I have to do fucking EVERYTHING
 	TF2_AddCondition(client, TFCond_Dazed, g_Stuns[client].flDuration);
-*/
 	return 0;
-}
+}*/
 
 stock Handle DHookCreateDetourEx(GameData conf, const char[] name, CallingConvention callConv, ReturnType returntype, ThisPointerType thisType)
 {

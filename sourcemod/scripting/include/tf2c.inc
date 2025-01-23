@@ -826,6 +826,8 @@ native void TF2_RemoveCondition(int client, TFCond cond);
 native void TF2_DisguisePlayer(int client, TFTeam team, TFClassType classType, int target = 0);
 native void TF2_RemovePlayerDisguise(int client);
 native void TF2_StunPlayer(int client, float duration, float slowdown = 0.0, int stunflags, int attacker = 0);
+native void TF2_SetPlayerPowerPlay(int client, bool enabled);
+native void TF2_MakeBleed(int client, int attacker, float duration);
 
 forward void TF2_OnConditionRemoved(int client, TFCond cond);
 forward void TF2_OnConditionAdded(int client, TFCond cond, float dur/*, int inflictor*/);
@@ -856,5 +858,7 @@ public void __pl_tf2c_SetNTVOptional()
 	MarkNativeAsOptional("TF2_DisguisePlayer");
 	MarkNativeAsOptional("TF2_RemovePlayerDisguise");
 	MarkNativeAsOptional("TF2_StunPlayer");
+	MarkNativeAsOptional("TF2_SetPlayerPowerPlay");
+	MarkNativeAsOptional("TF2_MakeBleed");
 }
 #endif
